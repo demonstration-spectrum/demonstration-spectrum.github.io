@@ -167,8 +167,9 @@ table {
     cursor:hand;
     cursor:pointer;     
 }
-span.button{
-	color:black;
+span.button.query {
+    color: black;
+    background: none;
 }
 .scroll-box{
     background-color:#e6e6e6;
