@@ -18,7 +18,7 @@ function initClient() {
     }).then(function() {
         // Listen for sign-in state changes.
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-		read_file();
+	//read_file();
     });
 }
 function updateSigninStatus(isSignedIn) {
