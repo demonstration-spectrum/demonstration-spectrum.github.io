@@ -1,9 +1,10 @@
 var CLIENT_ID = '13186554416-qm67gaf267dkiva1q2lett9pl7fmmi58.apps.googleusercontent.com';
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
 var SCOPES = 'https://www.googleapis.com/auth/drive';
-
+alert('get file run');
 function handleClientLoad() {
     gapi.load('client:auth2', initClient);
+
 }
 
 /**
@@ -16,9 +17,13 @@ function initClient() {
         clientId: CLIENT_ID,
         scope: SCOPES
     }).then(function() {
+		
         // Listen for sign-in state changes.
-        gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-	read_file();
+		updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+        //gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+		initMap();
+		//create_layer_kmz("https://maps.google.com/mapfiles/ms/icons/red-dot.png", map, 100, null, fileId="0Bwd3NA9h5YhqczRqSjAxTVlNem8");
+		//read_file('0Bwd3NA9h5YhqczRqSjAxTVlNem8');
     });
 }
 function updateSigninStatus(isSignedIn) {
@@ -51,14 +56,50 @@ function listFiles() {
     });
 }
 
-function read_file() {
+function read_file_2(fileId) {
+	
     gapi.client.drive.files.get({
-        'fileId': '0Bwd3NA9h5YhqNmhwRkxfcG1QR28',
+        'fileId': fileId,
         'alt': "media"
     }).then(function(response) {
-        appendPre(response.body);
-        //appendPre(response.result.toJson());//.name + ' (' + response.result.id + ')' +response.result.webContentLink);
-        console.log(response)
+        console.log(response);
+		alert(response.body);
+		var uInt8Array = Uint8Array.from(response.body);
+		var i = uInt8Array.length;
+		var binaryString = new Array(i);
+		while (i--)
+		{
+			binaryString[i] = String.fromCharCode(uInt8Array[i]);
+		}
+		var data = binaryString.join('');
+		var base64 = window.btoa(data);
+		console.log('uInt8Array     : ' + uInt8Array);
+		return response.body;
     });
 
+}
+function create_layer_kmz(icon_url, map, z_index, scaledSize, fileId) {
+	//code from RoccoB: https://stackoverflow.com/questions/37860901/how-to-use-google-drive-api-to-download-files-with-javascript
+	var accessToken = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;// or this: gapi.auth.getToken().access_token;
+
+	var xhr = new XMLHttpRequest();
+	xhr.open("GET", "https://www.googleapis.com/drive/v3/files/"+fileId+'?alt=media', true);
+	xhr.setRequestHeader('Authorization','Bearer '+accessToken);
+	xhr.responseType = 'arraybuffer'
+	xhr.onload = function(){
+		//base64ArrayBuffer from https://gist.github.com/jonleighton/958841
+		var newlayer = createlayer(icon_url, map, z_index, scaledSize, kmz_bs64=base64ArrayBuffer(xhr.response));
+		
+	}
+	xhr.send();
+	return create_layer_kmz;
+}
+function get_link(fileId){
+	gapi.client.drive.files.get({
+        'fileId': fileId,
+        'fields': "webContentLink"
+    }).then(function(response) {
+        console.log(response);
+		return response.body;
+    });
 }
