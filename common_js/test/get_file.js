@@ -3,7 +3,7 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/res
 var SCOPES = 'https://www.googleapis.com/auth/drive';
 
 function handleClientLoad() {
-
+    alert(gpi);
     gapi.load('client:auth2', initClient);
 	alert('get file run');
 }
