@@ -1,10 +1,11 @@
 var CLIENT_ID = '13186554416-qm67gaf267dkiva1q2lett9pl7fmmi58.apps.googleusercontent.com';
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
 var SCOPES = 'https://www.googleapis.com/auth/drive';
-alert('get file run');
-function handleClientLoad() {
-    gapi.load('client:auth2', initClient);
 
+function handleClientLoad() {
+
+    gapi.load('client:auth2', initClient);
+	alert('get file run');
 }
 
 /**
