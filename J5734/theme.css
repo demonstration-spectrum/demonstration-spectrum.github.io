@@ -241,3 +241,10 @@ span{
 input[type=checkbox] {
     display: inline !important;
 }
+.googft-legend-swatch {
+    border: 1px solid;
+    float: left;
+    height: 12px;
+    margin-right: 8px;
+    width: 20px;
+}
