@@ -242,9 +242,9 @@ input[type=checkbox] {
     display: inline !important;
 }
 .googft-legend-swatch {
-    border: 1px solid;
+    border: 0px solid;
     float: left;
-    height: 12px;
+    height: 20px;
     margin-right: 8px;
-    width: 20px;
+    width: 45px;
 }
