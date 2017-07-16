@@ -206,7 +206,7 @@
           function initMap() {
               uluru = {lat: -37.8797358, lng: 145.0440625};
               map = new google.maps.Map(document.getElementById('map'), {zoom:11, center: uluru });
-              marker = new google.maps.Marker({position: uluru,  map: null});
+              	init_inputsearch();
         	  territory_layer = new google.maps.FusionTablesLayer({query: {select: '\'col2\'',from: '18Nifm-lKVVdaZa2J0HXiS-Xu1ncppA783e7lVJdm'}, options: {styleId: 2, templateId: 2}  });
         	  territory_layer.setMap(map);
 			  
