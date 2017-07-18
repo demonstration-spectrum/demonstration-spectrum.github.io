@@ -253,3 +253,10 @@ margin: 10px;
 #pac-input:focus {
 border-color: #4d90fe;
 }
+.googft-legend-swatch {
+    border: 0px solid;
+    float: left;
+    height: 15px;
+    margin-right: 8px;
+    width: 45px;
+}
