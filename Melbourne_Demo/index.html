@@ -2,16 +2,19 @@
 <html>
 <head>
 
-<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-<script src="address_search.js" type="text/javascript"></script>
+
 <script type="text/javascript" src="https://demonstration-spectrum.github.io/geoxml3.js"></script>  <!-- https://docs.google.com/uc?export=download&id=0B7ae91JhWDOFREVRbUttQTcyTUU -->
 <script type="text/javascript" src="https://demonstration-spectrum.github.io/geoxml3_gxParse_kmz.js"></script>  <!-- https://docs.google.com/uc?export=download&id=0B7ae91JhWDOFRWlLOXRJdHpVT1E-->
 <script type="text/javascript" src="https://demonstration-spectrum.github.io/ZipFile.complete.js"></script>  <!-- https://docs.google.com/uc?export=download&id=0B7ae91JhWDOFQWJ2bW9DWnpnZW8-->
+<script src="https://demonstration-spectrum.github.io/common_js/bs64.js" type="text/javascript"></script>
+<script src="https://demonstration-spectrum.github.io/common_js/address_search.js" type="text/javascript"></script>
+
 <script>
 		google.load('visualization', '1', {'packages':['corechart', 'table', 'geomap']}); //this has to be put here to ensure loaded for later functions//or using callback
 </script>
-<link rel="stylesheet" type="text/css" href="theme.css">
+<link rel="stylesheet" type="text/css" href="https://demonstration-spectrum.github.io/common_js/theme.css">
 <style></style>
 
 </head>
@@ -80,7 +83,8 @@
 					   <span>Lowest</span>		</br>
 				  </div>
 				  <div class="legend">
-				  	   <h4>Building Approval Change 2011-2016</h4>
+				  	   <h4>Building Approval Change 2011-2016 (%)</h4>
+					   <h4>Population Projection Change 2016-2026 (%)</h4>
 					   <svg width="50" height="22">
 					   		  <rect width="45" height="20" style="fill:#274e13;stroke-width:0;stroke:rgb(0,0,0)" />
 					   </svg>
@@ -105,28 +109,98 @@
 					   		  <rect width="45" height="20" style="fill:#990000;stroke-width:0;stroke:rgb(0,0,0)" />
 					   </svg>
 					   <span>Lowest</span>		</br>
-				  </div>
+					</div>
+
+					<div class="legend">
+						<h4>Population Change</h4>
+						<select class="legend_select" id="pop_change_number" style='font-size:0.7em;'>
+						  <option value="r2011_2016" style='font-size:1.5em;'>2011 - 2016 (estimated)</option>
+						  <option value="r2016_2026" style='font-size:1.5em;'>2016 - 2026 (projected)</option>
+						</select>
+						<table id="pop_change_number">
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #00441b"></td>
+
+						<td class='googft-legend-range r2011_2016'><span>3,700 to 18,800</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>6,000 to 15,100</span></td>
+						</tr>
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #006d2c"></td>
+						<td class='googft-legend-range r2011_2016'><span>2,300 to 3,700</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>5,000 to 6,000</span></td>
+						</tr>
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #238b45"></td>
+						<td class='googft-legend-range r2011_2016'><span>1,600 to 2,300</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>4,300 to 5,000</span></td>
+						</tr>
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #41ab5d"></td>
+						<td class='googft-legend-range r2011_2016'><span>1,200 to 1,600</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>3,700 to 4,300</span></td>
+
+						</tr>
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #74c476"></td>
+						<td class='googft-legend-range r2011_2016'><span>900 to 1,200</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>3,200 to 3,700</span></td>
+
+						</tr>
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #fc9272"></td>
+						<td class='googft-legend-range r2011_2016'><span>700 to 900</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>2,800 to 3,200</span></td>
+
+						</tr>
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #fb6a4a"></td>
+						<td class='googft-legend-range r2011_2016'><span>500 to 700</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>2,400 to 2,800</span></td>
+
+						</tr>
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #ef3b2c"></td>
+						<td class='googft-legend-range r2011_2016'><span>300 to 500</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>1,900 to 2,400</span></td>
+
+						</tr>
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #cb181d"></td>
+						<td class='googft-legend-range r2011_2016'><span>100 to 300</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>1,600 to 1,900</span></td>
+
+						</tr>
+						<tr>
+						<td class="googft-legend-swatch" style="background-color: #a50f15"></td>
+						<td class='googft-legend-range r2011_2016'><span>0 to 100</span></td>
+						<td class='googft-legend-range r2016_2026' style='display:none;' ><span>0 to 1,600</span></td>
+
+
+						</tr>
+						</table>
+					</div>
+
 			 </div>
 			 <br>
 			 <button onclick = "reset_layer();"> Reset Layers </button>
 			 <br>
 
-			 
-			 
+
+
 			 <div class= "footnote">
 			   	  <img src="http://www.spectrumanalysis.com.au/uploads/3/1/8/6/31864321/1410756864.jpg">
 				  <div id="footnote_text">
-				  			 	  <span>© Spectrum Analysis</span></br>
+				  			 	  <span>&copy Spectrum Analysis</span></br>
 				  				  <span style="word-break:break-all;">w: spectrumanalysis.com.au</span></br>
 								  <span>p: (03) 9830 0077</span></br>
-								  <span>June 2017</span></br>
+								  <span>July 2017</span></br>
 								  <span></span></br>
 				  </div>
 
 			 </div>
 	</section>
 	<section id="map-section">
-		<input id="pac-input" class="controls" type="text" placeholder="Search Box">
+			<input id="pac-input" class="controls" type="text" placeholder="Search Box">
     		 <div id="map"></div>
 
 	</section>
@@ -188,7 +262,33 @@
 			  	 <!-- SAMPLE <li><input type="checkbox" value="Albury" checked><span class="territory button">Albury</span></li> -->
 		      </ul>
 		</form>
-
+		<h4><span>Population Change 2011 - 2016 est (in number)</span>
+			<span id="checkall" class="button" ul="popchange_no_1116_list">Check All</span>
+		</h4>
+		<input type="text" class="filter_box" id="myInput" ul="popchange_no_1116_list" placeholder="Search for names..">
+		<form>
+			  <ul id="popchange_no_1116_list" class='scroll-box'>
+			  	 <!-- SAMPLE <li><input type="checkbox" value="Albury" checked><span class="mar_area button">Albury</span></li> -->
+		      </ul>
+		</form>
+		<h4><span>Population Projection Change 2016-2026 (%)</span>
+			<span id="checkall" class="button" ul="popprojchange_1626_list">Check All</span>
+		</h4>
+		<input type="text" class="filter_box" id="myInput" ul="popprojchange_1626_list" placeholder="Search for names..">
+		<form>
+			  <ul id="popprojchange_1626_list" class='scroll-box'>
+			  	 <!-- SAMPLE <li><input type="checkbox" value="Albury" checked><span class="mar_area button">Albury</span></li> -->
+		      </ul>
+		</form>
+		<h4><span>Population Projection Change 2016-2026 (in number)</span>
+			<span id="checkall" class="button" ul="popprojchange_no_1626_list">Check All</span>
+		</h4>
+		<input type="text" class="filter_box" id="myInput" ul="popprojchange_no_1626_list" placeholder="Search for names..">
+		<form>
+			  <ul id="popprojchange_no_1626_list" class='scroll-box'>
+			  	 <!-- SAMPLE <li><input type="checkbox" value="Albury" checked><span class="mar_area button">Albury</span></li> -->
+		      </ul>
+		</form>
 
 	</section>
 
@@ -207,10 +307,11 @@
           function initMap() {
               uluru = {lat: -37.8797358, lng: 145.0440625};
               map = new google.maps.Map(document.getElementById('map'), {zoom:11, center: uluru });
-              	init_inputsearch();
+
+				init_inputsearch();
         	  territory_layer = new google.maps.FusionTablesLayer({query: {select: '\'col2\'',from: '18Nifm-lKVVdaZa2J0HXiS-Xu1ncppA783e7lVJdm'}, options: {styleId: 2, templateId: 2}  });
         	  territory_layer.setMap(map);
-			  
+
         	  seifa_layer = new google.maps.FusionTablesLayer({query: {select: '\'col2\'',from: '1e4IqA448df06v1bWrrN2h9NrThRVrEaky2Uy7ajg'}, options: {styleId: 2, templateId: 2}  });
         	  seifa_layer.setMap(null);
         	  pop_density_layer = new google.maps.FusionTablesLayer({query: {select: '\'col2\'',from: '1tKDcENAXfHD7Bk-q6S6hs0n88-z9NFlQpl8NUWb6'}, options: {styleId: 2, templateId: 2}  });
@@ -245,6 +346,13 @@
               });
 			  store_location_layer.parse('https://demonstration-spectrum.github.io/Melbourne_Demo/Store_Locations_demo.kmz');
 
+        	  popchange_no_1116_layer = new google.maps.FusionTablesLayer({query: {select: '\'geometry\'',from: '1StmTPUkq597bOaP1smIRDJwpJvWiJWbjayTGCBF_'}, options: {styleId: 2, templateId: 2}  });
+        	  popchange_no_1116_layer.setMap(null);
+        	  popprojchange_1626_layer = new google.maps.FusionTablesLayer({query: {select: '\'geometry\'',from: '197xdEtmVCLbcW79NdaXFIcV2bGpCot2NKsoNANaw'}, options: {styleId: 2, templateId: 2}  });
+        	  popprojchange_1626_layer.setMap(null);
+        	  popprojchange_no_1626_layer = new google.maps.FusionTablesLayer({query: {select: '\'geometry\'',from: '1aJOfyk_Wxu88SK1rnw6REvenvGcQ4k38lOyuaXeK'}, options: {styleId: 2, templateId: 2}  });
+        	  popprojchange_no_1626_layer.setMap(null);
+
 
 
 
@@ -253,11 +361,156 @@
             }
     </script>
 	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCYBCshC9i7DtFDg0JoXRVqmMoCTgbPH2I&libraries=places&callback=initMap"  type="text/javascript"></script>
-	<script src="value.js" type="text/javascript"></script>
-	
-    	<script src="script.js" type="text/javascript"></script>
-	<script src="zoom.js" type="text/javascript"></script>
-	<script src="filter.js" type="text/javascript"></script>
-	<script src="reset_layer.js" type="text/javascript"></script>
+	<script>
+function map_ordering(){
+    layers = layer_pointer();
+    //alert('set map');
+	for (var key in layers){
+		item_layer = layers[key];
+        if (typeof(item_layer) != "undefined"){
+          	if (item_layer.map == map) {
+             	  	item_layer.setMap(map);
+            }
+        }
+	}
+
+}
+
+var list_of_class = {
+"territory":{'id':"18Nifm-lKVVdaZa2J0HXiS-Xu1ncppA783e7lVJdm",'ulid':'territory_list','id_col':'name','name_col':'name','exception':[],'styleId': 2, 'templateId': 2,'layer_type':'fusion','default':'checked'},
+"comp":{'id':"10FG4AKMLnw5IjeHGLQ28KqBheqKTE3YmKrKyX_P4",'ulid':'comp_list','id_col':'Place_id','name_col':'Name','exception':[],'styleId': 2, 'templateId': 2,'layer_type':'geoxml','default':'checked'},
+"store_location":{'id':"1OfjlUvwb2TPrA81JOJUVQD3dYOUq_4L0cNtRw6aW",'ulid':'store_location_list','id_col':'Name','name_col':'Name','exception':[],'styleId': 2, 'templateId': 2,'layer_type':'geoxml','default':'checked'},
+"seifa":{'id':"1e4IqA448df06v1bWrrN2h9NrThRVrEaky2Uy7ajg",'ulid':'seifa_list','id_col':'name','name_col':'LOCALITY_NAME','exception':[],'styleId': 2, 'templateId': 2,'layer_type':'fusion','default':''},
+"pop_density":{'id':"1tKDcENAXfHD7Bk-q6S6hs0n88-z9NFlQpl8NUWb6",'ulid':'pop_density_list','id_col':'name','name_col':'LOCALITY_NAME','exception':[],'styleId': 2, 'templateId': 2,'layer_type':'fusion','default':''},
+"building_approval":{'id':"1deeKWARIb3QYbIiwaxvscKg_aFqrmaM8wYvGaOzq",'ulid':'building_approval_list','id_col':'name','name_col':'LOCALITY_NAME','exception':[],'styleId': 2, 'templateId': 2,'layer_type':'fusion','default':''},
+"popchange_no_1116":{'id':"1StmTPUkq597bOaP1smIRDJwpJvWiJWbjayTGCBF_",'ulid':'popchange_no_1116_list','id_col':'name','name_col':'LOCALITY_NAME','exception':[],'styleId': 2, 'templateId': 2,'layer_type':'fusion','default':''},
+"popprojchange_1626":{'id':"197xdEtmVCLbcW79NdaXFIcV2bGpCot2NKsoNANaw",'ulid':'popprojchange_1626_list','id_col':'col0\x3e\x3e0','name_col':'LOCALITY_NAME','exception':[],'styleId': 2, 'templateId': 2,'layer_type':'fusion','default':''},
+"popprojchange_no_1626":{'id':"1aJOfyk_Wxu88SK1rnw6REvenvGcQ4k38lOyuaXeK",'ulid':'popprojchange_no_1626_list','id_col':'col0\x3e\x3e0','name_col':'LOCALITY_NAME','exception':[],'styleId': 2, 'templateId': 2,'layer_type':'fusion','default':''},
+
+
+};
+
+function layer_pointer(){
+   var layer_list = {
+
+
+					"pop_density":pop_density_layer,
+					"popchange_no_1116":popchange_no_1116_layer,
+					"popprojchange_1626":popprojchange_1626_layer,
+					"popprojchange_no_1626":popprojchange_no_1626_layer,
+
+					"building_approval":building_approval_layer,
+
+
+
+					"territory":territory_layer,
+					"seifa":seifa_layer,
+					"comp":competitor_layer,
+					"store_location":store_location_layer,
+
+
+					};
+   return layer_list;
+}
+
+function list_pointer(){
+   var a_list = {"comp":comp_list,
+   	   		  	 "store_location":store_location_list,
+   	   		  	 "seifa":seifa_list,
+
+					"territory":territory_list,
+ 				 "pop_density":pop_density_list,
+ 				 "building_approval":building_approval_list,
+ 				 "popchange_no_1116":popchange_no_1116_list,
+ 				 "popprojchange_1626":popprojchange_1626_list,
+ 				 "popprojchange_no_1626":popprojchange_no_1626_list,
+				 };
+   return a_list;
+}
+
+
+
+
+var comp_list = [];
+var territory_list = [];
+var store_location_list = [];
+var seifa_list = [];
+var pop_density_list = [];
+var popchange_no_1116_list = [];
+var popprojchange_1626_list = [];
+var popprojchange_no_1626_list = [];
+
+var building_approval_list = [];
+var layer_list = new Array();
+var test_layer;
+
+function name_id_list(id_col,name_col,TableID, current_list_pointer) {
+  var FT_TableID =TableID;
+
+  var col_name = "1";
+  var term = "2";
+  var queryText = encodeURIComponent("SELECT '"+id_col+"', '" + name_col +"', 'centroidy','centroidx','area' FROM "+FT_TableID);
+  var query = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyDfM2G-dd5qJ5A09ffhzyH7YrHinEVE9po&sql='  + queryText;
+  //alert('query constructed:' + query);
+  var xhttp = new XMLHttpRequest();
+  xhttp.open('GET',query,true);
+  xhttp.send();
+  //alert('xhttp ok');
+  var a_list = list_pointer()[current_list_pointer];
+  xhttp.onreadystatechange = function() {
+	//if (this.readyState == 4 && this.status == 400){
+	//   if(typeof(JSON.parse(this.responseText)["error"]["errors"]) != "undefined"){
+	//	   alert("Error with list " + current_list_pointer + "\n" + JSON.parse(this.responseText)["error"]["errors"][0]["message"]);
+	//   }
+	//}
+    if (this.readyState == 4 && this.status == 200) {
+		//alert(current_list_pointer + "       :" + this.responseText);
+      a_list = a_list.concat(JSON.parse(this.responseText)['rows']);
+	  //alert("layer_list: " + layer_list.length);
+	  //alert('a_list_json: ' + current_list_pointer + "       :" + a_list.length);
+	  list_generate(a_list,list_of_class[current_list_pointer]['ulid'],current_list_pointer);
+	  format_input_box(current_list_pointer); //attach the event listening function into the box
+    }
+  };
+
+}
+
+for (var key in list_of_class){
+	if(typeof(list_of_class[key]['ulid']) != 'undefined'){
+		name_id_list(list_of_class[key]['id_col'],list_of_class[key]['name_col'],list_of_class[key]['id'],key);
+	}
+}
+
+
+function attach_layer(f_TableID, f_where,f_options,f_index){
+	layer_list[f_index]= new google.maps.FusionTablesLayer({query: {select: '\'col2\'',from: f_TableID, where: f_where}, options: f_options  });
+	//alert('layer_list set');
+}
+
+function list_generate(list,ulid,liid,layer_index){
+	var list_default = list_of_class[liid]['default'];
+	if (typeof(layer_index) === 'undefined') {
+		layer_index = 'undefined';
+	}
+	ul = document.getElementById(ulid);
+    for (var i =0; i<list.length; i++){
+		var el = document.createElement("li");
+		el.innerHTML = "<input type='checkbox' layer_index='"+layer_index+"' querytype='"+liid+"' "+ "query_val = '"+list[i][0]+"' "  +"value='"+list[i][1]+"' "+ list_default+"><span querytype= '"+liid+"' "+"query_val = '"+list[i][0]+"'"  + "centroidy = '"+list[i][2]+"' "+ "centroidx = '"+list[i][3]+"' "+ "area = '"+list[i][4]+"' "  +"class='button query'>"+list[i][1]+"</span>";
+		//var ul = document.createElement("ul");
+		ul.appendChild(el);
+	}
+
+}
+
+
+//list_generate(territory_list,"territory_list","territory");
+//list_generate(comp_list,"comp_list","comp");
+//setInterval(map_ordering, 3000);
+	</script>
+	<script src="https://demonstration-spectrum.github.io/common_js/legend_select.js" type="text/javascript"></script>
+    <script src="https://demonstration-spectrum.github.io/common_js/script.js" type="text/javascript"></script>
+	<script src="https://demonstration-spectrum.github.io/common_js/zoom.js" type="text/javascript"></script>
+	<script src="https://demonstration-spectrum.github.io/common_js/filter.js" type="text/javascript"></script>
+	<script src="https://demonstration-spectrum.github.io/common_js/reset_layer.js" type="text/javascript"></script>
 </body>
 </html>
