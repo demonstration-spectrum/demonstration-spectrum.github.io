@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>Cosmetic1_2017_8_23_14_50.KML</name>
+	<StyleMap id="stylemap_id0">
+		<Pair>
+			<key>normal</key>
+			<styleUrl>#style</styleUrl>
+		</Pair>
+		<Pair>
+			<key>highlight</key>
+			<styleUrl>#style0</styleUrl>
+		</Pair>
+	</StyleMap>
+	<Style id="style">
+		<LineStyle>
+			<color>ffff0000</color>
+			<width>5</width>
+		</LineStyle>
+	</Style>
+	<Style id="style0">
+		<LineStyle>
+			<color>ffff0000</color>
+			<width>5</width>
+		</LineStyle>
+	</Style>
+	<Placemark>
+		<name>0</name>
+		<description><![CDATA[<br><br><br>
+    <table border="1" padding="0">]]></description>
+		<styleUrl>#stylemap_id0</styleUrl>
+		<MultiGeometry>
+			<LineString>
+				<extrude>1</extrude>
+				<tessellate>1</tessellate>
+				<coordinates>
+					145.056696,-37.831343,0 145.056468,-37.831342,0 145.055676,-37.831251,0 145.055154,-37.831192,0 145.053985,-37.831058,0 145.053676,-37.831022,0 145.052789,-37.83092,0 145.05154,-37.830771,0 145.050291,-37.830621,0 145.050134,-37.830602,0 145.0492,-37.830495,0 145.049046,-37.830477,0 145.048258,-37.830386,0 145.047695,-37.830322,0 145.047328,-37.830279,0 145.043652,-37.829857,0 145.041856,-37.829645,0 145.04173,-37.829624,0 145.040825,-37.829521,0 145.040493,-37.829483,0 145.040043,-37.829432,0 145.038998,-37.829313,0 145.038094,-37.829208,0 145.037072,-37.829085,0 145.035546,-37.828897,0 145.034325,-37.828756,0 145.034213,-37.828741,0 
+				</coordinates>
+			</LineString>
+			<LineString>
+				<extrude>1</extrude>
+				<tessellate>1</tessellate>
+				<coordinates>
+					145.053937,-37.824863,0 145.053547,-37.824498,0 145.053001,-37.824083,0 145.052553,-37.823832,0 145.052014,-37.823607,0 145.051088,-37.823366,0 145.049177,-37.823046,0 
+				</coordinates>
+			</LineString>
+		</MultiGeometry>
+	</Placemark>
+</Document>
+</kml>
