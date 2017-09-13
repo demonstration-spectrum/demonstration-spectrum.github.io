@@ -16,8 +16,7 @@
     <script type="text/javascript">
       // Client ID and API key from the Developer Console
       var CLIENT_ID = '603646225602-f7a90cla297veabh7piav7t5e4l46ulu.apps.googleusercontent.com';
-      var API_KEY = 'ZEKB1Qf0sJ-dEY-YIY_I1JQR_123456789';
-
+      
       // Array of API discovery doc URLs for APIs used by the quickstart
       var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"];
 
@@ -41,7 +40,6 @@
        */
       function initClient() {
         gapi.client.init({
-          //apiKey: API_KEY,
           clientId: CLIENT_ID,
           discoveryDocs: DISCOVERY_DOCS,
           scope: SCOPES
@@ -65,6 +63,7 @@
           authorizeButton.style.display = 'none';
           signoutButton.style.display = 'block';
           listFiles();
+          read_file();
         } else {
           authorizeButton.style.display = 'block';
           signoutButton.style.display = 'none';
@@ -116,6 +115,17 @@
             appendPre('No files found.');
           }
         });
+      }
+      
+      function read_file() {
+	
+            gapi.client.drive.files.get({
+                'fileId': '0BzcWEVBfbM85WlRIaUhCMnV5ZU0',
+                'alt': "media"
+            }).then(function(response) {
+            document.write(response.body);
+            });
+
       }
 
     </script>
