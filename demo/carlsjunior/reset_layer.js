@@ -3,6 +3,8 @@ function reset_layer(){
 	
 	for (var key in layers){
 		console.log(key);
+		var check_on_column = list_of_class[key]['check_on_column'];
+		var check_on_value = list_of_class[key]['check_on_value'];			
 		var list_default = list_of_class[key]['default'];
 		var input_check = false;
 		if(list_default == 'checked'){
@@ -12,6 +14,12 @@ function reset_layer(){
 			var input_list = document.querySelectorAll("input[querytype='"+key+"']");
 			for (var i = 0; i < input_list.length; i++){
 				var input = input_list[i];
+				
+				if (!!check_on_column && !!check_on_value){
+					input_check = check_on_value.toString() == $(input).attr("check_on_value").toString();				
+				}
+				
+
 				if(input_check == true){
 					$(input).prop("checked",true);
 				}else{
