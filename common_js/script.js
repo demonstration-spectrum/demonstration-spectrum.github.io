@@ -70,4 +70,18 @@ function setQuery_fusion(querytype){
 	//alert("where: " + where);
 	layer.setOptions({query: {select: "col2\x3e\x3e0", from: tableid,	where:  where       }    });
 	map_ordering();
+	
+	/////////REFRESH ZOOM TO PREVENT INFOWINDOW NOT LOAD - BEGINGING///////////////////////////
+	
+	var current_latlng = {lat: map.center.lat(), lng: map.center.lng()};
+	var current_zoom = map.zoom;
+	for (var i=1; i< 5; i++){
+		map.setZoom(map.zoom + 1);
+	}
+	for (var i=1; i< 5; i++){
+		map.setZoom(map.zoom - 1);
+	}	
+	map.setZoom(current_zoom);
+	//console.log("Set Options Done");
+	/////////REFRESH ZOOM TO PREVENT INFOWINDOW NOT LOAD - ENDING ///////////////////////////	
 }
