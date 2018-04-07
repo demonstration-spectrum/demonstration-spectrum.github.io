@@ -92,11 +92,15 @@ function alter_infohtml(e, tableId, base_id_col) {
 	
 
 $submit.on("click", function(){
-	$(this).button('loading');
+	
 	var $edit_fields = $(this).parent().parent().parent().parent().find("#edit_fields");
 	//console.log(" $edit_fields" +  $edit_fields);
 	var $id_field = $edit_fields.find('input[class="id_col"]');
 	var base_id_col = $id_field.prop("name");
+	if (base_id_col){
+		$(this).button('loading');		
+	}
+	
 	var id_val = $id_field.prop("value");
 	var tableId = $id_field.attr("data-tableid"); //have to use attr here, not prop
 	var list_pointer = $id_field.attr("data-list_pointer");
