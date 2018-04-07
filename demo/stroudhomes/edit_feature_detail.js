@@ -92,7 +92,7 @@ function alter_infohtml(e, tableId, base_id_col) {
 	
 
 $submit.on("click", function(){
-	//$(this).button('loading');
+	$(this).button('loading');
 	var $edit_fields = $(this).parent().parent().parent().parent().find("#edit_fields");
 	//console.log(" $edit_fields" +  $edit_fields);
 	var $id_field = $edit_fields.find('input[class="id_col"]');
@@ -118,7 +118,7 @@ $submit.on("click", function(){
 	query = query.replace(/{SET_FIELDS}/g, set_array);
 
 	console.log('query: ' + query);
-	$submit.button('reset');
+	//$submit.button('reset');
 	query = encodeURIComponent(query);		
 	dataType = "application/json";
 	$.get({
@@ -135,5 +135,5 @@ $submit.on("click", function(){
 	
 });
 
-$submit.on("click", function(){
-	$(this).button('loading');});
+//$submit.on("click", function(){
+//	$(this).button('loading');});
