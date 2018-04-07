@@ -92,7 +92,7 @@ function alter_infohtml(e, tableId, base_id_col) {
 	
 
 $submit.on("click", function(){
-	//$(this).button('loading');
+	$(this).button('loading');
 	var $edit_fields = $(this).parent().parent().parent().parent().find("#edit_fields");
 	//console.log(" $edit_fields" +  $edit_fields);
 	var $id_field = $edit_fields.find('input[class="id_col"]');
