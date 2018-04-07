@@ -90,8 +90,7 @@ function alter_infohtml(e, tableId, base_id_col) {
 		
 	}
 	
-$submit.on("click", function(){
-	$(this).button('loading');});
+
 $submit.on("click", function(){
 	//$(this).button('loading');
 	var $edit_fields = $(this).parent().parent().parent().parent().find("#edit_fields");
@@ -134,4 +133,7 @@ $submit.on("click", function(){
 				},
 	});
 	
-});	
+});
+
+$submit.on("click", function(){
+	$(this).button('loading');});
