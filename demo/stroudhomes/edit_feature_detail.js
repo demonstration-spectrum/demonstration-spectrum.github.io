@@ -1,20 +1,20 @@
 var $nav = $("#main-nav-tabs");
 var $nav_ul = $nav.children("ul[class='nav nav-tabs']");
-$nav_ul.children("li").removeClass("active");
 var $edit_nav = $nav_ul.children("li[id='edit-tab-nav']");
-$edit_nav.addClass("active");
-
-var pane_id;
-pane_id = $edit_nav.children("a").attr('href');
+var pane_id = $edit_nav.children("a").attr('href');
 var $nav_pane = $nav.children(".tab-content");
-$nav_pane.children("div").removeClass("active");
 var $edit_pane = $nav_pane.children(pane_id);
-$edit_pane.addClass("active");
 var $edit_fields = $edit_pane.find("#edit_fields");
 var $submit = $nav_pane.find("button[id='edit_submit']");
 
 
 function edit_feature(verbose_name, tableId, list_pointer, base_id_col, id_col, id_val, field_list){
+	$nav_ul.children("li").removeClass("active");
+	$edit_nav.addClass("active");
+	$nav_pane.children("div").removeClass("active");
+	$edit_pane.addClass("active");
+	
+	
 	$edit_fields.empty();
 	for (i=0; i< field_list.length; i++){
 		$edit_fields.append($format_row(field_list[i]));
@@ -38,7 +38,7 @@ function $format_row(field){
 }
 
 
-function alter_infohtml(e, tableId, base_id_col) {
+function alter_infohtml(e, list_pointer, tableId, base_id_col, verbose_name) {
 		console.log(e);
 		//https://developers.google.com/fusiontables/docs/samples/change_infowindow_content
         //e.infoWindowHtml = '\"<div onclick=\'edit_feature()' class=\'googft-info-window\'>\n<table border=\"\"1\"\" padding=\"\"0\"\">\"\n<tr><td>name<\/td><td> '+ e.row['name'] + '<\/td><\/tr>\n<tr><td>description<\/td><td> '+ e.row['description'] + '<\/td><\/tr>\n<tr><td>Territory<\/td><td> '+ e.row['Territory'] + '<\/td><\/tr>\n<tr><td>State<\/td><td> '+ e.row['State'] + '<\/td><\/tr>\n<tr><td>Email<\/td><td> '+ e.row['Email'] + '<\/td><\/tr>\n<tr><td>Population_c2016<\/td><td> '+ e.row['Population_c2016'] + '<\/td><\/tr>\n<tr><td>Dwellings_c2016<\/td><td> '+ e.row['Dwellings_c2016'] + '<\/td><\/tr>\n<tr><td>Separate_House_2014<\/td><td> '+ e.row['Separate_House_2014'] + '<\/td><\/tr>\n<tr><td>Separate_House_2015<\/td><td> '+ e.row['Separate_House_2015'] + '<\/td><\/tr>\n<tr><td>Separate_House_2016<\/td><td> '+ e.row['Separate_House_2016'] + '\n\"<\/table>\n<\/div>\"';
@@ -47,13 +47,9 @@ function alter_infohtml(e, tableId, base_id_col) {
 		}
 		var raw_html = e.infoWindowHtml;
 		var $new_infohtml = $(raw_html);
-		var list_pointer = "";
-		var verbose_name = "Territory";
-		layers = layer_pointer();
-		for (var i in layers){
-			if (layers[i] == territory_layer){
-				list_pointer = i;
-			}
+		
+		if (!verbose_name){
+			verbose_name = "";
 		}
 		console.log('list_pointer' + list_pointer);
 		var id_col = list_of_class[list_pointer]['id_col'];
