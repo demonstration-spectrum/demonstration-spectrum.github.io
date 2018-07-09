@@ -84,7 +84,7 @@ function name_id_list(id_col,name_col,TableID, current_list_pointer) {
   var col_name = "1";
   var term = "2";
   var queryText = encodeURIComponent("SELECT '"+id_col+"', '" + name_col +"', 'centroidy','centroidx','area' "+(!!check_on_column ? ",'"+ check_on_column+"'":"")+" FROM "+FT_TableID+ (!!sortby ? " ORDER BY "+ sortby : ""));
-  var query = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyDfM2G-dd5qJ5A09ffhzyH7YrHinEVE9po&sql='  + queryText;
+  var query = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyCrv-YY5bKt9azbsU-TO5Y-9uzsQOdPNgY&sql='  + queryText;
   //alert('query constructed:' + query);
   var xhttp = new XMLHttpRequest();
   xhttp.open('GET',query,true);
