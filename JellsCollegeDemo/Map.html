@@ -1,1 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Spectrum Demo - Jells College</title>
+	<link rel="icon" href="" sizes="32x32">
 
+    <!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<link href="dashboard.css" rel="stylesheet">
+	<link href="checkall.css" rel="stylesheet">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<!--Google Map Script-->
+
+	<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+	<script type="text/javascript" src="https://demonstration-spectrum.github.io/geoxml3.js"></script>  <!-- https://docs.google.com/uc?export=download&id=0B7ae91JhWDOFREVRbUttQTcyTUU -->
+	<script type="text/javascript" src="https://demonstration-spectrum.github.io/geoxml3_gxParse_kmz.js"></script>  <!-- https://docs.google.com/uc?export=download&id=0B7ae91JhWDOFRWlLOXRJdHpVT1E-->
+	<script type="text/javascript" src="https://demonstration-spectrum.github.io/ZipFile.complete.js"></script>  <!-- https://docs.google.com/uc?export=download&id=0B7ae91JhWDOFQWJ2bW9DWnpnZW8-->
+	<script src="https://demonstration-spectrum.github.io/common_js/bs64.js" type="text/javascript"></script>
+	<script src="address_search.js" type="text/javascript"></script>
+	<script type="text/javascript" src="wmsMapType.js"></script>
+  </head>
+  <body>
+<div class="container-fluid">
+	  <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="http://spectrumanalysis.com.au">Spectrum Demo - Jells College</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#" onclick="reset_layer();" id="reset_layer_button">Reset Layers</a></li>
+			<li><a href="#" class="zoom_button">Zoom Out</a></li>
+			<li><a href="#" class="zoom_button">Zoom In</a></li>
+			<li><a href="/logout" id="logout_button">Log out</a></li>
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input id="pac-input" type="text" class="form-control" placeholder="Address Search...">
+
+          </form>
+        </div>
+      </div>
+    </nav>
+      <div class="row">
+		<div class="col-md-2 sidebar-container">
+			<div class="row">
+				<div class="col-md-12">
+					<ul class="nav nav-tabs">
+							<li class="active"><a href="#1a" data-toggle="tab">Legend</a></li>
+							<li><a href="#2a" data-toggle="tab">Layers</a></li>
+							<li><a href="#4a" data-toggle="tab">Themes</a></li>
+						</ul>
+					<div class="tab-content clearfix">
+						<div class="tab-pane active" id="1a">
+							<div class="row">
+								<div class="col-md-12">
+								  <ul id="legend" class="scroll-box nav">
+
+									<br>
+									<div class="legend">
+										<h6>Jells College</h6>
+										<img src="https://chart.googleapis.com/chart?chst=d_simple_text_icon_left&chld=|14|E301D8|civic-building|24|#E301D8|FFF">
+										</div>										
+
+									<div class="legend">
+										<h6>Competitive Schools</h6>
+										<img src="https://chart.googleapis.com/chart?chst=d_map_pin_letter&chld=%7CFF0000%7C000000">
+										</div>	
+									<div class="legend">
+										<h6>2019 Enrolments</h6>
+										<img src="http://map.spectrumanalysis.com.au/geoserver/wms?REQUEST=GetLegendGraphic&legend_options=fontName:Serif.plain;fontAntiAliasing:true&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=spectrum:Jells_college_students" style="overflow:hidden;">
+										</div>			
+									<div class="legend">
+										<h6>2016 Enrolments</h6>
+										<img src="http://map.spectrumanalysis.com.au/geoserver/wms?REQUEST=GetLegendGraphic&legend_options=fontName:Serif.plain;fontAntiAliasing:true&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=spectrum:Jells_college_students_2016" style="overflow:hidden;">
+										</div>	
+									<div class="legend">
+										<h6>2011 Enrolments</h6>
+										<img src="http://map.spectrumanalysis.com.au/geoserver/wms?REQUEST=GetLegendGraphic&legend_options=fontName:Serif.plain;fontAntiAliasing:true&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=spectrum:Jells_college_students_2011" style="overflow:hidden;">
+										</div>											
+									<div class="legend">
+										<h6>SEIFA</h6>
+										<img src="http://map.spectrumanalysis.com.au/geoserver/wms?REQUEST=GetLegendGraphic&legend_options=fontName:Serif.plain;fontAntiAliasing:true&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=j5937_kingswim_0518:seifa" style="overflow:hidden;">
+										</div>
+
+									<div class="legend">
+										<h6>Future Population Growth</h6>
+										<img src="http://map.spectrumanalysis.com.au/geoserver/wms?REQUEST=GetLegendGraphic&legend_options=fontName:Serif.plain;fontAntiAliasing:true&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=spectrum:Suburbs (Population Projection)" style="overflow:hidden;">
+										</div>
+
+									<div class="legend">
+										<h6>Student Penetration</h6>
+										<img src="http://map.spectrumanalysis.com.au/geoserver/wms?REQUEST=GetLegendGraphic&legend_options=fontName:Serif.plain;fontAntiAliasing:true&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=spectrum:Jells_sa1_2016_aust" style="overflow:hidden;">
+										</div>
+
+
+									</ul>
+
+									</div>
+								</div>
+							</div>
+						<div class="tab-pane" id="2a">
+							<div id="rightCol" aria-label="Navigation Toolbar" class="_14iw _1qkq _1qku">
+								<div class="home_right_column">
+										<div class="pagelet-group pagelet scroll-box" id="pagelet_reminders">
+											<div class="row"><div class="col-md-12"><h6><span>(Click on Layer Title to view detailed list)</span></h6></div></div>
+											<div class="row groupselect" groupid="clientStore_group">
+												<div class="col-md-9"><h5><span>Jells College</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="clientStore_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+
+
+											
+											<div class="row groupselect" groupid="_2019_enrol_group">
+												<div class="col-md-9"><h5><span>2019 Enrolments</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="_2019_enrol_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+											<div class="row groupselect" groupid="_2016_enrol_group">
+												<div class="col-md-9"><h5><span>2016 Enrolments</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="_2016_enrol_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+											<div class="row groupselect" groupid="_2011_enrol_group">
+												<div class="col-md-9"><h5><span>2011 Enrolments</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="_2011_enrol_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+											<div class="row groupselect" groupid="seifa_group">
+												<div class="col-md-9"><h5><span>SEIFA</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="seifa_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+											<div class="row groupselect" groupid="pri_catchment_group">
+												<div class="col-md-9"><h5><span>Primary Catchment Area</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="pri_catchment_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+											<div class="row groupselect" groupid="sec_catchment_group">
+												<div class="col-md-9"><h5><span>Secondary Catchment Area</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="sec_catchment_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+											<div class="row groupselect" groupid="comp_group">
+												<div class="col-md-9"><h5><span>Competitive schools</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="comp_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+											<div class="row groupselect" groupid="pop_growth_group">
+												<div class="col-md-9"><h5><span>Future population growth</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="pop_growth_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+											<div class="row groupselect" groupid="student_penetration_group">
+												<div class="col-md-9"><h5><span>Students per 5-19 Age Group</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="student_penetration_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+											<div class="row groupselect" groupid="transport_group">
+												<div class="col-md-9"><h5><span>Bus Route (Current and Proposed)</span></h5></div>
+												<div class="col-md-3 col-minusgap">
+													<label class='switch'>
+														<input type ="checkbox" ul="transport_list" id="checkall">
+														<span class="slider round">   </span>
+													</label>
+												</div>
+
+												 </div>
+
+
+											</div>
+
+										<div class="pagelet-group pagelet horizontal-break" id="pagelet_break">
+											</div>
+<!-- Details List------------------------- Details List-------------------------Details List-------------------------Details List-------------------------Details List-------------------------Details List-------------------------Details List-------------------------    -->
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="clientStore_group" style="display:none">
+											<div class="row"><h4><span>Jells College</span></h4></div>
+											<div class="row">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="clientStore_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="clientStore_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="_2019_enrol_group" style="display:none">
+											<div class="row"><h4><span>2019 Enrolments</span></h4></div>
+											<div class="row" style="display:none">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="_2019_enrol_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="_2019_enrol_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="_2016_enrol_group" style="display:none">
+											<div class="row"><h4><span>2016 Enrolments</span></h4></div>
+											<div class="row" style="display:none">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="_2016_enrol_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="_2016_enrol_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="_2011_enrol_group" style="display:none">
+											<div class="row"><h4><span>2011 Enrolments</span></h4></div>
+											<div class="row" style="display:none">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="_2011_enrol_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="_2011_enrol_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="seifa_group" style="display:none">
+											<div class="row"><h4><span>Socio - Economic Indexes for Areas</span></h4></div>
+											<div class="row" style="display:none">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="seifa_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="seifa_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="pri_catchment_group" style="display:none">
+											<div class="row"><h4><span>Primary Catchment Area</span></h4></div>
+											<div class="row" style="display:none">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="pri_catchment_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="pri_catchment_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="sec_catchment_group" style="display:none">
+											<div class="row"><h4><span>Secondary Catchment Area</span></h4></div>
+											<div class="row" style="display:none">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="sec_catchment_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="sec_catchment_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="comp_group" style="display:none">
+											<div class="row"><h4><span>Competitive schools</span></h4></div>
+											<div class="row">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="comp_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="comp_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="pop_growth_group" style="display:none">
+											<div class="row"><h4><span>Future population growth</span></h4></div>
+											<div class="row" style="display:none">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="pop_growth_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="pop_growth_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="student_penetration_group" style="display:none">
+											<div class="row"><h4><span>Students per 5-19 Age Group</span></h4></div>
+											<div class="row" style="display:none">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="student_penetration_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="student_penetration_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+										<div class="pagelet-group pagelet groupvalue pagelet-detail" id="transport_group" style="display:none">
+											<div class="row"><h4><span>Bus Route (Current and Proposed)</span></h4></div>
+											<div class="row">
+												<div class="row">
+													<div class="col-md-12">
+														<input type="text" class="form-control filter_box" id="myInput" ul="transport_list" placeholder="Search for names..">
+														</div>
+													</div>
+												<div class="row">
+													<div class="col-md-12">
+														<form>
+															<ul id="transport_list" class='scroll-box'  style="overflow-y: scroll; height: 30vh;">
+															</ul>
+														</form>
+														</div>
+													</div>
+												</div>
+											</div>
+
+
+									</div>
+								</div>
+							</div>
+						<div class="tab-pane" id="3a">
+							<div class="row">
+								<div class="col-md-10 col-md-offset-1">
+									<input type="file" id="custom_mapfile" class="custom-file-input">
+
+									</div>
+								</div>
+							<div class="row">
+								<div  id="render-custom-layer" class="col-md-10 col-md-offset-1">
+									<div class="btn btn-primary">Render</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="[ form-group ]">
+											<input type="checkbox" name="fancy-checkbox-default" id="fancy-checkbox-default" autocomplete="off">
+												<div class="[ btn-group ]">
+													<label for="fancy-checkbox-default" class="btn btn-default col-md-2">
+														<span class="[ glyphicon glyphicon-ok ]"></span>
+														<span>&nbsp;</span>
+														</label>
+													<label for="fancy-checkbox-default" class="btn btn-default active col-md-10">
+														First Layer FirstFirst Layer First Layer First Layer First Layer First Layer
+														</label>
+
+													</div>
+											</div>
+										</div>
+									</div>
+
+							</div>
+
+						<div class="tab-pane" id="4a">
+							<div class="row">
+								<div class="col-md-12">
+								  <ul class="scroll-box nav leftpane-scroll">
+										<!-- use JSON.stringify to quickly convert variable to json text to paste into data-style-->
+										<div class = "row">
+										<div class="col-md-12 theme_thumb" data-style='[{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#f2e5d4"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{"featureType":"road","elementType":"all","stylers":[{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"water","elementType":"all","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]}]'>
+											<h5>Standard</h5>
+											<div class=""><img class="img-12" src="https://snazzy-maps-cdn.azureedge.net/assets/1-pale-dawn.png?v=20170626075114"></div>
+											</div>
+											</div>
+										<div class="theme_thumb" data-style='[]'>
+											<h5>Google Map</h5>
+											<div class=""><img class="img-12" src="https://snazzy-maps-cdn.azureedge.net/assets/1243-xxxxxxxxxxx.png?v=20170626083204"></div>
+											</div>
+										<div class="theme_thumb" data-style='[{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#f7f1df"}]},{"featureType":"landscape.natural","elementType":"geometry","stylers":[{"color":"#d0e3b4"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry","stylers":[{"visibility":"off"}]},{"featureType":"poi","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"poi.business","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"poi.medical","elementType":"geometry","stylers":[{"color":"#fbd3da"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#bde6ab"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"visibility":"off"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffe15f"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#efd151"}]},{"featureType":"road.arterial","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road.local","elementType":"geometry.fill","stylers":[{"color":"black"}]},{"featureType":"transit.station.airport","elementType":"geometry.fill","stylers":[{"color":"#cfb2db"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#a2daf2"}]}]'>
+											<h5>Apple Map</h5>
+											<div class=""><img class="img-12" src="https://snazzy-maps-cdn.azureedge.net/assets/42-apple-maps-esque.png?v=20170626081223"></div>
+											</div>
+										<div class="theme_thumb" data-style='[{"featureType":"all","elementType":"all","stylers":[{"invert_lightness":true},{"saturation":10},{"lightness":30},{"gamma":0.5},{"hue":"#435158"}]},{"featureType":"administrative","elementType":"labels.text.fill","stylers":[{"color":"#cfaa52"}]},{"featureType":"administrative.country","elementType":"geometry.stroke","stylers":[{"color":"#505362"}]},{"featureType":"administrative.province","elementType":"geometry.stroke","stylers":[{"color":"#40468a"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#0e152b"}]},{"featureType":"landscape.natural","elementType":"geometry.fill","stylers":[{"color":"#1a213c"}]},{"featureType":"landscape.natural.landcover","elementType":"geometry.fill","stylers":[{"color":"#0f152c"}]},{"featureType":"landscape.natural.terrain","elementType":"geometry.fill","stylers":[{"color":"#13183c"}]},{"featureType":"poi.attraction","elementType":"geometry.fill","stylers":[{"color":"#1b2d4a"}]},{"featureType":"poi.business","elementType":"geometry.fill","stylers":[{"color":"#19233f"}]},{"featureType":"poi.government","elementType":"geometry.fill","stylers":[{"color":"#19233f"}]},{"featureType":"poi.medical","elementType":"geometry.fill","stylers":[{"color":"#19233f"}]},{"featureType":"poi.park","elementType":"geometry.fill","stylers":[{"color":"#222a4b"}]},{"featureType":"poi.place_of_worship","elementType":"geometry.fill","stylers":[{"color":"#1e1d44"}]},{"featureType":"poi.school","elementType":"geometry.fill","stylers":[{"color":"#19233f"}]},{"featureType":"transit","elementType":"geometry.fill","stylers":[{"color":"#262a48"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#13183c"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#f9eb33"}]}]'>
+											<h5>Globex</h5>
+											<div class=""><img class="img-12" src="https://snazzy-maps-cdn.azureedge.net/assets/146660-globex.png?v=20180320063806"></div>
+											</div>
+										<div class="theme_thumb" data-style='[{"featureType":"administrative","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"administrative.province","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"landscape","elementType":"all","stylers":[{"saturation":-100},{"lightness":65},{"visibility":"on"}]},{"featureType":"poi","elementType":"all","stylers":[{"saturation":-100},{"lightness":"50"},{"visibility":"simplified"}]},{"featureType":"road","elementType":"all","stylers":[{"saturation":"-100"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"}]},{"featureType":"road.arterial","elementType":"all","stylers":[{"lightness":"30"}]},{"featureType":"road.local","elementType":"all","stylers":[{"lightness":"40"}]},{"featureType":"transit","elementType":"all","stylers":[{"saturation":-100},{"visibility":"simplified"}]},{"featureType":"water","elementType":"geometry","stylers":[{"hue":"#ffff00"},{"lightness":-25},{"saturation":-97}]},{"featureType":"water","elementType":"labels","stylers":[{"lightness":-25},{"saturation":-100}]}]'>
+											<h5>Subtle Grayscale</h5>
+											<div class=""><img class="img-12" src="https://snazzy-maps-cdn.azureedge.net/assets/15-subtle-grayscale.png?v=20170626083535"></div>
+											</div>
+										<div class="theme_thumb" data-style='[{"featureType":"all","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"administrative.country","elementType":"all","stylers":[{"visibility":"on"},{"color":"#000000"}]},{"featureType":"administrative.country","elementType":"geometry.stroke","stylers":[{"visibility":"on"},{"color":"#F7F5F2"},{"weight":0.8}]},{"featureType":"landscape","elementType":"all","stylers":[{"color":"#000000"}]},{"featureType":"landscape.man_made","elementType":"all","stylers":[{"color":"#ff0000"},{"visibility":"off"}]},{"featureType":"landscape.man_made","elementType":"geometry","stylers":[{"color":"#000000"}]},{"featureType":"landscape.man_made","elementType":"geometry.fill","stylers":[{"color":"#ff0000"}]},{"featureType":"poi","elementType":"all","stylers":[{"color":"#000000"}]},{"featureType":"road","elementType":"all","stylers":[{"visibility":"on"},{"color":"#ff0000"}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#ffffff"}]},{"featureType":"road","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"road.highway","elementType":"all","stylers":[{"visibility":"simplified"},{"color":"#ff0000"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"visibility":"on"},{"color":"#ffffff"}]},{"featureType":"road.highway","elementType":"labels","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"all","stylers":[{"visibility":"off"}]},{"featureType":"water","elementType":"all","stylers":[{"color":"#ffffff"}]}]'>
+											<h5>Black & White</h5>
+											<div class=""><img class="img-12" src="https://snazzy-maps-cdn.azureedge.net/assets/151659-black-white.png?v=20180325052000"></div>
+											</div>
+									</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<div class="row" style="display:none;">
+				<div class= "col-md-12 footnote">
+					<div class="row">
+						<div class= "col-md-3 footer-logo">
+							<img class="img-responsive" src="http://www.spectrumanalysis.com.au/uploads/3/1/8/6/31864321/1410756864.jpg">
+							</div>
+						<div class="col-md-9" id="footnote_text">
+										  <span>&copy Spectrum Analysis </span></br>
+										  <span style="word-break:break-all;">w: spectrumanalysis.com.au</span></br>
+										  <span>p: (03) 9830 0077</span></br>
+										  <span></span></br>
+							</div>
+						</div>
+
+					</div>
+				</div>
+		</div>
+		<div class="col-md-10 col-md-offset-2 col-nogap">
+			<div id="map"></div>
+			</div>
+      </div>
+
+
+
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+	<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+	<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+	<!-- Google Map API script-->
+    <script>
+		var map;
+		var uluru;
+		var marker;
+		var seifa_infow;
+		var seifa_value;
+		var seifa_marker;
+		var infowindow;
+		function initMap() {
+
+			uluru = {lat: -37.8801044, lng: 145.1719698};
+			map = new google.maps.Map(document.getElementById('map'), {
+																		zoom:13, center: uluru, scaleControl: true, gestureHandling: 'greedy',
+																		styles: [{featureType:"administrative",elementType:"all",stylers:[{visibility:"on"},{lightness:33}]},{featureType:"landscape",elementType:"all",stylers:[{color:"#f2e5d4"}]},{featureType:"poi.park",elementType:"geometry",stylers:[{color:"#c5dac6"}]},{featureType:"poi.park",elementType:"labels",stylers:[{visibility:"on"},{lightness:20}]},{featureType:"road",elementType:"all",stylers:[{lightness:20}]},{featureType:"road.highway",elementType:"geometry",stylers:[{color:"#c5c6c6"}]},{featureType:"road.arterial",elementType:"geometry",stylers:[{color:"#e4d7c6"}]},{featureType:"road.local",elementType:"geometry",stylers:[{color:"#fbfaf7"}]},{featureType:"water",elementType:"all",stylers:[{visibility:"on"},{color:"#acbcc9"}]}],
+
+
+
+
+																		});
+			map.setOptions({clickableIcons:false});
+			
+			infowindow = new google.maps.InfoWindow({content: ""});
+
+			init_inputsearch();
+			clientStore_layer = new WmsMapType(
+							 "clientStore",
+							 "http://map.spectrumanalysis.com.au/geoserver/wms",
+							 {layers: "spectrum:Jells_college"},
+							 {opacity: 0.7}
+					   );
+
+				
+			_2019_enrol_layer = new WmsMapType(
+								 "_2019_enrol",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "spectrum:Jells_college_students"},
+								 {opacity: 0.7}
+						   );
+			_2016_enrol_layer = new WmsMapType(
+								 "_2016_enrol",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "spectrum:Jells_college_students_2016"},
+								 {opacity: 0.7}
+						   );
+			_2011_enrol_layer = new WmsMapType(
+								 "_2011_enrol",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "spectrum:Jells_college_students_2011"},
+								 {opacity: 0.7}
+						   );
+			seifa_layer = new WmsMapType(
+								 "seifa",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "j5937_kingswim_0518:seifa"},
+								 {opacity: 0.7}
+						   );
+			pri_catchment_layer = new WmsMapType(
+								 "pri_catchment",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "spectrum:Jells_college_primary_catchment_area"},
+								 {opacity: 0.7}
+						   );
+			sec_catchment_layer = new WmsMapType(
+								 "sec_catchment",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "spectrum:Jells_college_secondary_catchment_area"},
+								 {opacity: 0.7}
+						   );
+			comp_layer = new WmsMapType(
+								 "comp",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "spectrum:Jells_competitors"},
+								 {opacity: 0.7}
+						   );
+			pop_growth_layer = new WmsMapType(
+								 "pop_growth",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "spectrum:Suburbs (Population Projection)"},
+								 {opacity: 0.7}
+						   );
+			student_penetration_layer = new WmsMapType(
+								 "student_penetration",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "spectrum:Jells_sa1_2016_aust"},
+								 {opacity: 0.7}
+						   );
+			transport_layer = new WmsMapType(
+								 "transport",
+								 "http://map.spectrumanalysis.com.au/geoserver/wms",
+								 {layers: "spectrum:Jells_transport"},
+								 {opacity: 0.7}
+						   );
+
+
+			
+
+			}
+    </script>
+
+
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfM2G-dd5qJ5A09ffhzyH7YrHinEVE9po&callback=initMap&libraries=geometry,places"  type="text/javascript"></script>
+	<script src="value.js" type="text/javascript"></script>
+    <script src="script.js" type="text/javascript"></script>
+	<script src="https://demonstration-spectrum.github.io/common_js/zoom.js" type="text/javascript"></script>
+	<script src="https://demonstration-spectrum.github.io/common_js/filter.js" type="text/javascript"></script>
+	<script src="reset_layer.js" type="text/javascript"></script>
+	<script src="maptheme.js" type="text/javascript"></script>
+	<script src="upload_layer.js" type="text/javascript"></script>
+  </body>
+</html>

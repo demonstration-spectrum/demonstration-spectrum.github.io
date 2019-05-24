@@ -1,0 +1,65 @@
+		div#legend{
+			margin-bottom: 0.5em;
+		}
+		#custom_button{
+			left:3px;
+			position:relative;
+			float:left;
+		}
+		.switch {
+		  position: relative;
+		  display: inline-block;
+		  width: 100%;
+		  height: 34px;
+		  margin-left: 2px;
+		}
+
+		.switch input {display:none !important;}
+
+		.slider {
+		  position: absolute;
+		  cursor: pointer;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  background-color: #ccc;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+
+		.slider:before {
+		  position: absolute;
+		  content: "";
+		  height: 30px;
+		  width: 20%;
+		  left: 1px;
+		  bottom: 2px;
+		  background-color: white;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+
+		input:checked + .slider {
+		  background-color: #2196F3;
+		}
+
+		input:focus + .slider {
+		  box-shadow: 0 0 1px #2196F3;
+		}
+
+		input:checked + .slider:before {
+		  -webkit-transform: translateX(400%);
+		  -ms-transform: translateX(400%);
+		  transform: translateX(400%);
+		}
+
+		/* Rounded sliders */
+		.slider.round {
+		  border-radius: 4px;
+		}
+
+		.slider.round:before {
+		  border-radius: 4px;
+		}
+	
